@@ -1,0 +1,150 @@
+{% extends 'baseadmin.html' %}
+{% block contenu %}
+<div class="reservation-form">
+    <h2>Réponse a la demande </h2>
+    <form class="reservation-form" method="POST">
+        {% csrf_token %}
+        <h3>Details demande</h3>
+        <hr>
+        <div class="reservation-details">
+            <div class="detail">Type de salle : {{ reservation.typeSalleReservaiton }}</div>
+            <div class="detail">Date de réservation : {{ reservation.dateReservation }}</div>
+            <div class="detail">Heure de début : {{ reservation.heureDebutReservation }}</div>
+            <div class="detail">Durée de la réservation : {{ reservation.dureeReservation }}</div>
+            <div class="detail">Nombre de participants : {{ reservation.nbParticipant }}</div>
+            <div class="detail">Demandée par : {{reservation.person_demande.first_name}} {{reservation.person_demande.last_name}}</div>
+            <div class="detail">Salle : {{ reservation.SalleReservation}}</div>
+            <div class="detail">Services : </div>
+            <ul>
+            {% for service in reservation.services.all %}                   
+                <li>{{service}}</li>
+            {% endfor %}
+            </ul>
+            <div class="detail">Equipements disponible dans la salle :</div>
+            <ul>
+                <li> Vidéoprojecteur</li>
+            </ul>
+            <div class="detail">Equipement a metre en disposition :</div>
+            <ul><li>Tableau blanc</li></ul>
+        </div>
+        <h3>Reponse</h3>
+        <hr>
+        <div class="form-group">
+            <label for="Status">Status</label>
+            {% for radio in form.Status %}
+                <div class="form-check">
+                    {{ radio.tag }}
+                    <label class="form-check-label" for="{{ radio.id_for_label }}">
+                        {{ radio.choice_label }}
+                    </label>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="form-group" id="cause-field" style="display: none;">
+            <label for="cause">Commentaire</label>
+            {{ form.cause }}
+        </div>
+        <input type="submit" value="Annuler" class="btn btn-danger">
+        <input type="submit" value="Confirmer" class="btn btn-primary">
+    </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const statusField = document.querySelectorAll('input[name="Status"]');
+    const causeField = document.getElementById('cause-field');
+
+    statusField.forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            if (this.value === 'Annuler') {
+                causeField.style.display = 'block';
+            } else {
+                causeField.style.display = 'none';
+            }
+        });
+    });
+});
+</script>
+<style>
+/* Styles généraux */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+}
+
+/* Formulaire de réservation */
+.reservation-form {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.reservation-form h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.reservation-details {
+  margin-bottom: 30px;
+}
+
+.detail {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: #555;
+}
+
+.detail strong {
+  font-weight: 700;
+  margin-right: 5px;
+}
+
+.form-container {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.form-group input[type="radio"] {
+  margin-right: 5px;
+}
+
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+}
+.btn{
+  width: 150px;
+  margin-left: 20px;
+}
+.btn-danger{
+  margin-left: 300px;
+}
+
+</style>
+{% endblock %}
+

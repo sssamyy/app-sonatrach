@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block contenu %}
+  <h1>Check-out Detail</h1>
+  <p>Salle: {{ object.SalleReservation }}</p>
+  <p>Date: {{ object.dateReservation }}</p>
+  <p>Heure de début: {{ object.heureDebutReservation }}</p>
+  <p>Durée: {{ object.dureeReservation }}</p>
+  <p>Nombre de participants: {{ object.nbParticipant }}</p>
+  <p>Services: {% for service in object.services.all %}{{ service }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+  <p>Équipements: {% for equipement in object.equipments.all %}{{ equipement }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+  <p><a href="{% url 'create_rapport' object.pk %}">Check-out</a></p>
+{% endblock %}

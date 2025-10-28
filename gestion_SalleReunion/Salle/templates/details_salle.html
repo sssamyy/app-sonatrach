@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block contenu %}
+  <h1>Details de la salle</h1>
+  <ul>
+    <li>Numero de la salle: {{ Salle.numero_de_salle }}</li>
+    <li>Etage: {{ Salle.etage }}</li>
+    <li>Zone: {{ Salle.zone }}</li>
+    <li>Capacite: {{ Salle.capacite }}</li>
+    <li>Etat: {{ Salle.etat }}</li>
+    <li>Type de salle: {{ Salle.typeSalle }}</li>
+    <li>Securise: {{ Salle.securise }}</li>
+    <li>Equipements:
+      <ul>
+        {% for equipement in Salle.equiments_salle.all %}
+          <li>{{ equipement.nomEquipment }}</li>
+        {% endfor %}
+      </ul>
+    </li>
+  </ul>
+{% endblock %}

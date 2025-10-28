@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block contenu %}
+  <h2>Liste des salles</h2>
+  <table border="1px" class="table table-light table-striped-columns">
+    <thead>
+      {% load static %}
+      <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> 
+      <th>Numero de salle</th>
+      <th>Etage</th>
+      <th>Zone</th>
+      <th>Capacite</th>
+      <th>Etat</th>
+      <th>Type de salle</th>
+      <th>Securise</th>
+      <th>Equipements</th>
+    </tr>
+    </thead>
+    <tbody>
+      {% for Salle in salles %}
+        <tr>
+          <td>{{Salle.numero_de_salle}}</td>
+          <td>{{Salle.etage}}</td>
+          <td>{{Salle.zone}} </td>
+          <td>{{Salle.capacite}}</td>
+          <td>{{Salle.etat}}</td>
+          <td>{{Salle.etage}}</td>
+          <td>{{Salle.typeSalle }}</td>
+          <td>{{Salle.securise }}</td>
+          <td>
+            <ul>
+              {% for equipement in Salle.equiments_salle.all %}
+                <li>{{ equipement.nomEquipment }}</li>
+              {% endfor %}
+            </ul>
+        </td>
+          
+          <td><a href="{% url 'modifierSalle' Salle.id %}" class="btn btn-primary btn-sm">Modifier</a></td>
+          <td><a href="{% url 'supprimerSalle' Salle.id %}" class="btn btn-danger btn-sm">Supprimer</a></td>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{% url 'creer_salle' %}" class="btn btn-success">Ajouter un salle</a>
+{% endblock %}

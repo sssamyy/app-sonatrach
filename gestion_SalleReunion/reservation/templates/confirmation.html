@@ -1,0 +1,99 @@
+{% extends base %}
+{% block reserver %}htmlmenu-menu-current{% endblock %}
+{% block contenu %}
+    <h2 class="reservation-title">Confirmation de la réservation </h2>
+    <div class="reservation-confirmation">
+        <form class="reservation-form" method="POST">
+            {% csrf_token %}
+            <div class="reservation-details">
+                <div class="detail">Type de salle : {{ reservation.typeSalleReservaiton }}</div>
+                <div class="detail">Date de réservation : {{ reservation.dateReservation }}</div>
+                <div class="detail">Heure de début : {{ reservation.heureDebutReservation }}</div>
+                <div class="detail">Durée de la réservation : {{ reservation.dureeReservation }}</div>
+                <div class="detail">Nombre de participants : {{ reservation.nbParticipant }}</div>
+                {% if request.session.ad %}
+                    <div class="detail">Nom Demandeur : {{reservation.person_demande.first_name}} {{reservation.person_demande.last_name}}</div>
+                {% endif %}
+                <div class="detail">Salle : {{ reservation.SalleReservation}}</div>
+                <div class="detail">Services : </div>
+                <ul>
+                {% for service in reservation.services.all %}                   
+                    <li>{{service}}</li>
+                {% endfor %}
+                </ul>
+                <div class="detail">Equipements :</div>
+                <ul>
+                    <li> Vidéoprojecteur</li>
+                    <li> Tableau blanc</li>
+                </ul>
+            </div>
+            <div class="reservation-actions">
+                <button type="submit" name="validation" value="true" class="btn btn-primary">Confirmer</button>
+                <a href="{% url 'suppDemande' reservation.idReservation %}" class="btn btn-danger">Annuler</a>
+                <a href="{% url 'reservation-choixSalle' reservation.idReservation %}" class="btn btn-secondary">Retour</a>
+            </div>
+        </form>
+    </div>
+    <style>
+/* CSS pour un formulaire esthétique */
+.reservation-title {
+text-align: center;
+margin-bottom: 30px;
+font-size: 24px;
+font-weight: bold;
+color: #333;
+}
+.reservation-confirmation {
+max-width: 600px;
+margin: 0 auto;
+padding: 30px;
+background-color: #fff;
+border: 1px solid #ddd;
+border-radius: 5px;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+} .reservation-form {
+display: flex;
+flex-direction: column;
+} .reservation-details {
+margin-bottom: 20px;
+} .detail {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 10px 0;
+border-bottom: 1px solid #ddd;
+} .detail:last-child {
+border-bottom: none;
+} .detail-label {
+font-weight: bold;
+} .reservation-actions {
+display: flex;
+justify-content: space-between;
+margin-top: 20px;
+} .btn {
+padding: 10px 20px;
+font-size: 16px;
+border-radius: 5px;
+transition: background-color 0.3s, color 0.3s;
+} .btn-primary {
+background-color: #007bff;
+color: #fff;
+border: none;
+} .btn-primary:hover {
+background-color: #0056b3;
+} .btn-danger {
+background-color: #dc3545;
+color: #fff;
+border: none;
+} .btn-danger:hover {
+background-color: #a71d2a;
+} .btn-secondary {
+background-color: #6c757d;
+color: #fff;
+border: none;
+} .btn-secondary:hover {
+background-color: #495057;
+}
+
+    </style>
+{% endblock %}

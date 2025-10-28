@@ -1,0 +1,118 @@
+{% extends 'baseadmin.html' %}
+{% block contenu %}
+<div class="entete">
+    <h2>Liste des reservations validées</h2>
+    <hr>
+    <a href="{% url 'ajoutReservation' %}" class="btn btn-primary">Ajouter réservation</a>
+</div>
+<div class="table">
+    <table border="1px" class="table">
+        <thead class="table-g">
+            <tr>
+                <th scope="col">ID réservation</th>
+                <th scope="col">Date de réservation</th>
+                <th scope="col">Créneau horaire</th>
+                <th scope="col">Demandeur</th>
+                <th scope="col">Salle</th>
+                <th scope="col">Opérations</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {%for d in page_obj %}
+            <tr>
+                <td>{{d.reservation.idReservation}}</td>
+                <td>{{d.reservation.dateReservation}}</td>
+                <td>{{d.reservation.heureDebutReservation}}-{{d.heure_fin}}</td>
+                <td>{{d.reservation.person_demande.first_name}} {{d.reservation.person_demande.last_name}}</td>
+                <td>{{d.reservation.SalleReservation}}</td>
+                <td>
+                  <ul>
+                    <li><a href="#" class="btn btn-primary"><i class="fa-solid fa-ellipsis"></i></a></li>
+                    <li><a class="btn btn-secondary" href="{% url 'editReservation' d.reservation.idReservation %}"><i class="fa-solid fa-pen"></i></a></li>
+                    <li><a class="btn btn-danger" href="{% url 'suppReservation' d.reservation.idReservation %}" ><i class="fa-solid fa-trash"></i></a></li>
+                  </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <span class="page-link" aria-hidden="true">&laquo;</span>
+            </li>
+          {% endif %}              
+          {% for page in page_obj.paginator.page_range %}
+            {% if page == page_obj.number %}
+              <li class="page-item active">
+                <span class="page-link">{{ page }}</span>
+              </li>
+            {% else %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+          {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <span class="page-link" aria-hidden="true">&raquo;</span>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+</div>
+<style>
+  .entete{
+    margin-top: 20px;
+    margin-left: 10px;
+  }
+  .entete a{
+    margin-bottom: 20px;
+  }
+  .table td ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.table td ul li {
+  margin-right: 5px;
+}
+
+.table td ul li a.btn {
+  padding: 5px 10px;
+  font-size: 14px;
+}
+
+.table td ul li a.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: #fff;
+}
+
+.table td ul li a.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: #fff;
+}
+
+.table td ul li a.btn:hover {
+  opacity: 0.8;
+}
+</style>
+{% endblock %}

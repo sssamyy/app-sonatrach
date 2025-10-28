@@ -1,0 +1,88 @@
+{% extends 'baseadmin.html' %}
+{% block contenu %}
+<div class="entete">
+    <h2>Liste de demandes non traite</h2>
+    <hr>
+</div>
+<div class="table">
+    <table border="1px" class="table">
+        <thead class="table-g">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date de reservation</th>
+                <th scope="col">Creneau horaire</th>
+                <th scope="col">Demandeur</th>
+                <th scope="col">Salle</th>
+                <th scope="col">Date Demande</th>
+                <th scope="col">Operation</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {%for d in page_obj %}
+            <tr>
+                <td>{{d.demande.idReservation}}</td>
+                <td>{{d.demande.dateReservation}}</td>
+                <td>{{d.demande.heureDebutReservation}}-{{d.heure_fin}}</td>
+                <td>{{d.demande.person_demande.first_name}} {{d.demande.person_demande.last_name}}</td>
+                <td>{{d.demande.SalleReservation}}</td>
+                <td>{{d.demande.DateDemande}}</td>
+                <td>
+                  <ul>
+                    <li><a class="btn btn-success" href="{% url 'reponseDemande' d.demande.idReservation %}" >valider</a></li>
+                  </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <span class="page-link" aria-hidden="true">&laquo;</span>
+            </li>
+          {% endif %}              
+          {% for page in page_obj.paginator.page_range %}
+            {% if page == page_obj.number %}
+              <li class="page-item active">
+                <span class="page-link">{{ page }}</span>
+              </li>
+            {% else %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+          {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <span class="page-link" aria-hidden="true">&raquo;</span>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+</div>
+<style>
+.entete{
+  margin-top: 20px;
+  margin-left: 10px;
+
+}
+.table td ul {
+  list-style-type: none;
+}
+
+
+</style>
+{% endblock %}

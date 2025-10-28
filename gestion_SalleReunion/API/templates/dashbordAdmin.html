@@ -1,0 +1,123 @@
+{% extends 'baseadmin.html' %}
+{% block contenu %}
+  <section class="dashboard">
+    <h1>Tableau de bord</h1>
+    <div class="stats">
+      <a href="{% url 'reservation-list-admin' %}">
+        <div class="stat">
+          <h3>Réservations non valider</h3>
+          <p>{{nb_demande}}</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- <section class="recent-reservations">
+    <h2>Dernières réservations</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Salle</th>
+          <th>Utilisateur</th>
+          <th>Date</th>
+          <th>Heure</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Salle de réunion 1</td>
+          <td>Entreprise XYZ</td>
+          <td>2023-04-15</td>
+          <td>14h00 - 16h00</td>
+          <td>
+            <a href="#" class="btn">Modifier</a>
+            <a href="#" class="btn">Annuler</a>
+          </td>
+        </tr>
+        <tr>
+          <td>Salle de formation 2</td>
+          <td>Entreprise ABC</td>
+          <td>2023-04-16</td>
+          <td>09h00 - 12h00</td>
+          <td>
+            <a href="#" class="btn">Modifier</a>
+            <a href="#" class="btn">Annuler</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section> -->
+</body>
+</html>
+<style>
+/* Dashboard */
+.dashboard {
+  padding: 40px 20px;
+}
+.dashboard .stats a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 40px;
+}
+
+.stat {
+  background-color: #f5f5f5;
+  padding: 20px;
+  text-align: center;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.stat h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.stat p {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Dernières réservations */
+.recent-reservations {
+  padding: 40px 20px;
+  background-color: #f5f5f5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #333;
+  color: #fff;
+}
+
+.btn {
+  display: inline-block;
+  background-color: #007bff;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 14px;
+  margin-right: 5px;
+}
+
+</style>
+{% endblock %}

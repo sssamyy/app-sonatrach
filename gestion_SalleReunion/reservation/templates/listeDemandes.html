@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block mesreservations %}htmlmenu-menu-current{% endblock %}
+{% block contenu %}
+<div class="entete">
+    <h2>Listes demandes en cours de traitement</h2>
+    <hr>
+</div>
+<div class="table">
+    <table border="1px" class="table">
+        <thead class="table-g">
+            <tr>
+                <th scope="col">ID Demande</th>
+                <th scope="col">Date de reservation</th>
+                <th scope="col">creneau horaire</th>
+                <th scope="col">Salle</th>
+                <th scope="col">Operations</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {%for d in page_obj %}
+            <tr>
+                <td>{{d.demande.idReservation}}</td>
+                <td>{{d.demande.dateReservation}}</td>
+                <td>{{d.demande.heureDebutReservation}}-{{d.heure_fin}}</td>
+                <td>{{d.demande.SalleReservation}}</td>
+                <td>
+                  <ul>
+                    <li><a href="#" class="btn btn-primary"><i class="fa-solid fa-ellipsis"></i></a></li>
+                    <li><a class="btn btn-secondary" href="{% url 'editDemande' d.demande.idReservation %}"><i class="fa-solid fa-pen"></i></a></li>
+                    <li><a class="btn btn-danger" href="{% url 'suppDemande' d.demande.idReservation %}" ><i class="fa-solid fa-trash"></i></a></li>
+                  </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <span class="page-link" aria-hidden="true">&laquo;</span>
+            </li>
+          {% endif %}              
+          {% for page in page_obj.paginator.page_range %}
+            {% if page == page_obj.number %}
+              <li class="page-item active">
+                <span class="page-link">{{ page }}</span>
+              </li>
+            {% else %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+          {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <span class="page-link" aria-hidden="true">&raquo;</span>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+</div>
+<style>
+  tbody ul{
+    list-style: none;
+    display: flex;
+    justify-content: space;
+  }
+  tbody ul li {
+  margin-right: 5px;
+}
+</style>
+<script>
+  window.addEventListener('popstate', function(event) {
+    // Vérifier si vous voulez rediriger vers la page de création de réservation
+    if (window.location.pathname === 'http://127.0.0.1:8000/reservations/reservationList') {
+        // Rediriger vers la page de création de réservation
+        window.location.href = 'http://127.0.0.1:8000/reservations/creer';
+    }
+});
+function checkDelete(){
+  return confirm("Est-ce que vous etes sur d'anuler la demande")
+}
+</script>
+{% endblock %}

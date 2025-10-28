@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block contenu %}
+  <h1>Rapport List</h1>
+  <ul>
+    {% for rapport in rapports %}
+      <li>{{ rapport.situationReservation }} - {{ rapport.commentaire }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

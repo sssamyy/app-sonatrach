@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Supprimer la salle{% endblock %}
+
+{% block contenu %}
+  <h2>Supprimer le Salle</h2>
+  <p>Êtes-vous sûr de vouloir supprimer le Salle {{ Salle.numero_de_salle }}  ?</p>
+  <form method="POST">
+    {% csrf_token %}
+    <button type="submit">Confirmer la suppression</button>
+  </form>
+  <a href="{% url 'SalleList' %}">Annuler</a>
+{% endblock %}

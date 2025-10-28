@@ -1,0 +1,102 @@
+
+{% extends base %}
+{% block reserver %}htmlmenu-menu-current{% endblock %}
+{% block contenu %}
+<style>
+    .salle {
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+    .salle.disponible {
+        background-color: green;
+        color: white;
+        cursor: pointer;
+    }
+    .salle.reservee {
+        background-color: orange;
+        color: white;
+        cursor: pointer;
+    }
+    .salle.indisponible {
+        background-color: red;
+        color: white;
+        cursor: not-allowed;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+</style>
+<h2>Choix de salle</h2>
+<br>
+<form id="salle-form" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="salle_id" id="salle-id">
+</form>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Capacité</th>
+            <th>Etage</th>
+            <th>Zone</th>
+            <th>Sécurisé</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for salle in salles_dispo %}
+        <tr class="salle disponible" data-salle-id="{{ salle.id }}">
+            <td>{{ salle.id }}</td>
+            <td>{{ salle.nom_salle}}</td>
+            <td>{{ salle.capacite }}</td>
+            <td>{{ salle.etage }}</td>
+            <td>{{ salle.zone}}</td>
+            <td>{% if salle.securise %}Oui{% else %}Non{% endif %}</td>
+        </tr>
+        {% endfor %}
+        {% for salle in salles_reserves %}
+        <tr class="salle reservee" data-salle-id="{{ salle.id }}">
+            <td>{{ salle.id }}</td>
+            <td>{{ salle.nom_salle}}</td>
+            <td>{{ salle.capacite }}</td>
+            <td>{{ salle.etage }}</td>
+            <td>{{ salle.zone}}</td>
+            <td>{% if salle.securise %}Oui{% else %}Non{% endif %}</td>
+        </tr>
+        {% endfor %}
+        {% for salle in salles_non_dispo %}
+        <tr class="salle indisponible" data-salle-id="{{ salle.id }}">
+            <td>{{ salle.id }}</td>
+            <td>{{ salle.nom_salle}}</td>
+            <td>{{ salle.capacite }}</td>
+            <td>{{ salle.etage }}</td>
+            <td>{{ salle.zone}}</td>
+            <td>{% if salle.securise %}Oui{% else %}Non{% endif %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'editDemande' reservation %}" class="btn btn-primary" style="padding: 10px 30px;margin-top: 30px;">Retour</a>
+<script>
+    document.querySelectorAll('.salle.disponible, .salle.reservee').forEach(function(row) {
+        row.addEventListener('click', function() {
+            var salleId = this.dataset.salleId;
+            document.getElementById('salle-id').value = salleId;
+            document.getElementById('salle-form').submit();
+        });
+    });
+</script>
+{% endblock %}

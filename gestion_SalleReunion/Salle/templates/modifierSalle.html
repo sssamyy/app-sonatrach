@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Modifier le Client{% endblock %}
+
+{% block contenu %}
+  <h2>Modifier la salle</h2>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Modifier</button>
+  </form>
+  <a href="{% url 'SalleList' %}">Retour à la liste des clients</a>
+{% endblock %}

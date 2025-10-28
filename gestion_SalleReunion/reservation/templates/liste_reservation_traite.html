@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% block mesreservations %}htmlmenu-menu-current{% endblock %}
+{% block contenu %}
+<style>
+/* Styles pour la section d'en-tête */
+.entete {
+  margin-bottom: 20px;
+}
+
+.entete h2 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.entete hr {
+  border-top: 2px solid #ccc;
+  margin-top: 10px;
+}
+
+/* Styles pour le navbar */
+.navbar {
+  background-color: #f8f9fa;
+  padding: 10px 0;
+}
+
+.navbar .form-inline {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .form-inline label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.navbar .form-inline select {
+  width: 150px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.navbar .btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.navbar .btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #004a9b;
+}
+tbody ul{
+    list-style: none;
+    display: flex;
+    justify-content: space;
+  }
+  tbody ul li {
+  margin-right: 5px;
+}
+
+</style>
+<div class="entete">
+    <h2>Liste de demandes traites</h2>
+    <hr>
+</div>
+<nav class="navbar bg-body-tertiary">
+  <div class="container-fluid">
+      <form method="get">
+          <div class="form-inline">
+            <label for="resultat">Resultat</label>
+            <select name="fd" id="resultat">
+              <option value="">Tous</option>
+              <option value="hh">Accepte</option>
+              <option value="rr">Refus</option>
+            </select>
+          </div>
+      </form>
+  </div>
+</nav>
+<div class="table">
+    <table border="1px" class="table">
+        <thead class="table-g">
+            <tr>
+                <th scope="col">ID demande</th>
+                <th scope="col">Date de reservation</th>
+                <th scope="col">creneau horaire</th>
+                <th scope="col">Salle</th>
+                <th scope="col">Resultat</th>
+                <th scope="col">Operation</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {%for d in page_obj %}
+            <tr>
+                <td>{{d.reservation.idReservation}}</td>
+                <td>{{d.reservation.dateReservation}}</td>
+                <td>{{d.reservation.heureDebutReservation}}-{{d.heure_fin}}</td>
+                <td>{{d.reservation.SalleReservation}}</td>
+                <td>{% if d.reservation.etat_reservation == 'C' %}Accepte{% else %}Refus{% endif %}</td>
+                <td>
+                  <ul>
+                    <li><a href="#" class="btn btn-primary"><i class="fa-solid fa-ellipsis"></i></a></li>
+                    {% if d.reservation.etat_reservation == 'C' %}<li><a class="btn btn-danger" href="" ><i class="fa-solid fa-x"></i></a></li>{% endif %}
+                  </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <span class="page-link" aria-hidden="true">&laquo;</span>
+            </li>
+          {% endif %}              
+          {% for page in page_obj.paginator.page_range %}
+            {% if page == page_obj.number %}
+              <li class="page-item active">
+                <span class="page-link">{{ page }}</span>
+              </li>
+            {% else %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+          {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <span class="page-link" aria-hidden="true">&raquo;</span>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+</div>
+{% endblock %}

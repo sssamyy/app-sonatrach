@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block contenu %}
+  <h1>Check-out List</h1>
+  <ul>
+    {% for demande in demandes %}
+      <li><a href="{% url 'checkout_detail' demande.pk %}">{{ demande }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

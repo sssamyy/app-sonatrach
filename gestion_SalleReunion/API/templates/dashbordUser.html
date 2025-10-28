@@ -1,0 +1,233 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block Accueil %}htmlmenu-menu-current{% endblock %}
+{% block contenu %}
+  <div class="owl-carousel owl-theme">
+    <div class="item">
+      <img src="{% static 'images/1.png' %}" alt="Image 1">
+      <div class="overlay-text">
+        <p>Bienvenu à notre app</p>
+        <a href="{% url 'reservation-create' %}" class="btn">Réserver une salle</a>
+      </div>
+    </div>
+    <div class="item">
+      <img src="{% static 'images/2.png' %}" alt="Image 2">
+      <div class="overlay-text">
+        <p style="padding-left: 80px;">RSS</p>
+        <p id="abr">Reservation Salles Sonatrach</p>
+        <a href="{% url 'reservation-create' %}" class="btn">Réserver une salle</a>
+      </div>
+    </div>
+    <div class="item">
+      <img src="{% static 'images/3.png' %}" alt="Image 3">
+      <div class="overlay-text">
+        <p>Bienvenu à notre app</p>
+        <a href="{% url 'reservation-create' %}" class="btn">Réserver une salle</a>
+      </div>    
+    </div>
+  </div>
+  <main>
+    <section class="hero">
+      <h1>Votre espace de réservation de salles en un clic !</h1>
+      <p>Réservez facilement vos salles de réunion, de formation ou d'événement.</p>
+      <a href="{% url 'reservation-create' %}" class="btn">Réserver une salle</a>
+    </section>
+    
+    <section class="features">
+      <div class="feature">
+        <img src="{% static 'images/planning1.jpg' %}" alt="Planning des salles">
+        <h3>Visualisation du planning des salles disponibles</h3>
+        <p>Consultez en temps réel la disponibilité de nos salles.</p>
+      </div>
+      <div class="feature">
+        <img src="{% static 'images/reservation.jpg' %}" alt="Réservation en ligne">
+        <h3>Réservation en ligne rapide et sécurisée</h3>
+        <p>Réservez votre salle en quelques clics.</p>
+      </div>
+      <div class="feature">
+        <img src="{% static 'images/gestion.jpg' %}" alt="Gestion des réservations">
+        <h3>Gestion de vos réservations</h3>
+        <p>Modifiez ou annulez vos réservations à tout moment.</p>
+      </div>
+    </section>
+    <section class="testimonials">
+      <h2>Pourquoi choisir [Nom de l'application] ?</h2>
+      <div class="testimonial">
+        <blockquote>
+          <p>"Plateforme intuitive et conviviale, réservation en un clin d'œil !"</p>
+          <cite>- Entreprise XYZ</cite>
+        </blockquote>
+      </div>
+      <div class="testimonial">
+        <blockquote>
+          <p>"Tarifs compétitifs et équipe à l'écoute, je recommande !"</p>
+          <cite>- Entreprise ABC</cite>
+        </blockquote>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; [Année] [Nom de l'application]. Tous droits réservés.</p>
+    <div class="contact">
+      <p>Besoin d'aide ? Contactez-nous :</p>
+      <p>Email : contact@[nomdelapplication].com</p>
+      <p>Téléphone : 01 23 45 67 89</p>
+    </div>
+  </footer>
+</body>
+</html>
+<style>
+  /* Styles généraux */
+  /*STYLE image carousel*/
+/* Styles généraux du carrousel */
+.owl-carousel {
+  width: 100%; /* Ajustez cette valeur selon vos besoins */
+  margin: 0 auto; /* Centre le carrousel horizontalement */
+}
+
+#abr{
+  font-size: 20px;
+}
+/* Styles spécifiques aux images du carrousel */
+.owl-carousel .item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15cm; /* Ajustez cette valeur selon vos besoins */
+}
+
+.owl-carousel .item img {
+ height:20cm;
+ width: 300cm;
+  filter: brightness(0.6); /* Réduit la luminosité des images */
+  object-fit: contain;
+}
+.owl-carousel .item {
+  position: relative;
+}
+
+.owl-carousel .item .overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1cm;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+.owl-carousel .owl-dots {
+  position: absolute;
+  bottom: 10px; /* Ajustez la position verticale selon vos besoins */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.hero {
+  background-image: url('hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 20px;
+  margin-bottom: 40px;
+}
+
+.btn {
+  --bs-btn-hover-border-color:white;
+  display: inline-block;
+  background-color: #F2980F;
+  color: #fff;
+  padding: 10px 60px;
+  text-align: center;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+/* Features section */
+.features {
+  display: flex;
+  justify-content: space-around;
+  padding: 60px 20px;
+}
+
+.feature {
+  text-align: center;
+  max-width: 300px;
+}
+
+.feature img {
+  width: 8cm;
+  height: 6cm;
+  margin-bottom: 20px;
+}
+
+/* Testimonials section */
+.testimonials {
+  background-color: #f5f5f5;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.testimonial {
+  max-width: 600px;
+  margin: 0 auto;
+  margin-bottom: 40px;
+}
+
+.testimonial blockquote {
+  font-size: 18px;
+  font-style: italic;
+  margin: 0;
+}
+
+.testimonial cite {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Footer */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.contact {
+  margin-top: 10px;
+}
+
+</style>
+<script>
+  $(document).ready(function(){
+  $(".owl-carousel").owlCarousel({
+    items: 1,
+    loop: true,
+    autoplay: false,
+    autoplayTimeout: 4000,
+    autoplayHoverPause: true
+  });
+});
+
+</script>
+{% endblock %}

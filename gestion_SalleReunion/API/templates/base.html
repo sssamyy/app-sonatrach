@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+{% load static %}
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/1.1.2/js/bootstrap-multiselect.min.js" integrity="sha512-lxQ4VnKKW7foGFV6L9zlSe+6QppP9B2t+tMMaV4s4iqAv4iHIyXED7O+fke1VeLNaRdoVkVt8Hw/jmZ+XocsXQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
+    <body>
+        <header>
+            <div class="htmlmenu-wrapper">
+              <div class="htmlmenu-header">
+                <div class="htmlmenu-container">
+                  <div class="htmlmenu-logo">
+                    <a href="{% url 'dashbord_user' %}">
+                      <img src="{% static 'images/logoSON.png' %}" alt="htmlmenu">
+                    </a>
+                  </div>
+                  <input type="checkbox" id="htmlmenu-toggle" class="htmlmenu-toggle">
+                  <label for="htmlmenu-toggle"><span></span><span></span><span></span></label>
+                  <nav class="htmlmenu-menu htmlmenu-menu-style-3 htmlmenu-submenu-scale" role="navigation">
+                    <ul>
+                      <li class="{% block Accueil %}{% endblock %}">
+                        <a href="{% url 'dashbord_user' %}">Accueil</a>
+                      </li>
+                      <li class="{% block reserver %}{% endblock %}">
+                        <a href="{% url 'reservation-create' %}">Réserver une salle</a>
+                      </li>
+                      <li class="{% block mesreservations %}{% endblock %}">
+                        <input id="htmlmenu-1539847293315" type="checkbox">
+                        <a href="#">Mes réservations
+                          <label for="htmlmenu-1539847293315"></label>
+                        </a>
+                        <ul>
+                          <li>
+                            <a href="{% url 'reservation-list' %}">Non traités</a>
+                          </li>
+                          <li>
+                            <a href="{% url 'reservation-list-traite' %}">traités</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="{% block Assistance %}{% endblock %}" >
+                        <a href="#">Assistance</a>
+                      </li>
+                      <li>
+                        <a href="{% url 'logout' %}">Deconnexion</a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+                <div class="htmlmenu-header-shadow"></div>
+              </div>
+              <div class="htmlmenu-header-spacer"></div>
+            </div>
+            </header>
+    {% include 'header.html' %}    
+    <!-- {% include 'sidebar.html' %} -->
+    <div class="content">
+        <div class="dashboard-content px-1 pt-4">
+          {% block contenu %} {% endblock %}
+        </div>
+    </div>
+</div>
+
+    
+</html>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      var logoutLink = document.querySelector('a[href="{% url "logout" %}"]');
+      logoutLink.addEventListener('click', function(event) {
+          // Vider le cache du navigateur
+          caches.keys().then(function(cacheNames) {
+              cacheNames.forEach(function(cacheName) {
+                  caches.delete(cacheName);
+              });
+          });
+      });
+  });
+</script>

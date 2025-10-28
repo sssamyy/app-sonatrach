@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% block reserver %}htmlmenu-menu-current{% endblock %}
+{% block contenu %}
+<div class="reservation-form">
+  <h2>Réservation de salle</h2>
+  <form method="POST">
+    {% csrf_token %}
+    <div class="form-group col-md-6">
+      <label for="{{ reservation_form.typeSalleReservaiton.id_for_label }}">{{ reservation_form.typeSalleReservaiton.label }}</label>
+      {{ reservation_form.typeSalleReservaiton }}
+      {% if reservation_form.typeSalleReservaiton.errors %}
+      <div class="alert alert-danger">{{ reservation_form.typeSalleReservaiton.errors.0 }}</div>
+      {% endif %}
+    </div>
+    <div class="row g-4">
+      <div class="form-group col-md-4">
+        <label for="{{ reservation_form.dateReservation.id_for_label }}">{{ reservation_form.dateReservation.label }}</label>
+        {{reservation_form.dateReservation}}
+        {% if reservation_form.dateReservation.errors %}
+          <div class="alert alert-danger">{{ reservation_form.dateReservation.errors.0 }}</div>
+        {% endif %}
+      </div>
+      <div class="form-group col-md-4 mx-5">
+        <label for="{{ reservation_form.heureDebutReservation.id_for_label }}">{{ reservation_form.heureDebutReservation.label }}</label>
+        {{reservation_form.heureDebutReservation}}
+        {% if reservation_form.heureDebutReservation.errors %}
+          <div class="alert alert-danger">{{ reservation_form.heureDebutReservation.errors.0 }}</div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="form-group col-md-4">
+        <label for="{{ reservation_form.dureeReservation.id_for_label }}">{{ reservation_form.dureeReservation.label }}</label>
+        {{reservation_form.dureeReservation}}
+        {% if reservation_form.dureeReservation.errors %}
+          <div class="alert alert-danger">{{ reservation_form.dureeReservation.errors.0 }}</div>
+        {% endif %}
+      </div>
+      <div class="form-group col-md-4 mx-5" style="width: 22rem;">
+        <label for="{{ reservation_form.nbParticipant.id_for_label }}">{{ reservation_form.nbParticipant.label }}</label>
+        {{reservation_form.nbParticipant}}
+        {% if reservation_form.nbParticipant.errors %}
+          <div class="alert alert-danger">{{ reservation_form.nbParticipant.errors.0 }}</div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="form-group col-md-4">
+        <label for="{{ reservation_form.services.id_for_label }}">{{ reservation_form.services.label }} :</label>
+        {{ reservation_form.services }}
+      </div>
+      <div class="form-group col-md-4 mx-5">
+        <label for="{{ reservation_form.equipements.id_for_label }}">{{ reservation_form.equipements.label }} </label>
+        {{ reservation_form.equipements }}
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Suivant</button>
+  </form>
+</div>
+<style>
+body {
+    font-family: Arial, sans-serif;
+}
+
+form {
+    max-width:30cm;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+h3 {
+    margin-top: 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"],
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+button[type="submit"] {
+    background-color: #ff8c00;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #e67e00;
+}
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-inline .form-control {
+  display: inline-block;
+  width: auto;
+  vertical-align: middle;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -5px;
+  margin-left: -5px;
+}
+
+.form-row > .col {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+label {
+  margin-bottom: 0.5rem;
+}
+.reservation-form h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+#gg{
+  padding: 6px;
+}
+
+</style>
+
+{% endblock %}

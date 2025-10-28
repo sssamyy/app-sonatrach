@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block contenu %}
+<h1>Calendrier</h1>
+<div class="col-md-12">
+  <div id="calendar"></div>
+</div>
+<button id="ajouterReservation">Ajouter une réservation</button>
+<div id="modalAjoutReservation" style="display:none;">
+    <form id="formAjoutReservation">
+        {% csrf_token %}
+        <label for="dateReservation">Date de la réservation:</label><br>
+        <input type="date" id="dateReservation" name="dateReservation"><br>
+        <label for="heureDebutReservation">Heure de début de la réservation:</label><br>
+        <input type="time" id="heureDebutReservation" name="heureDebutReservation"><br>
+        <input type="submit" value="Ajouter">
+    </form>
+</div>
+</body>
+<script>
+    $(document).ready(function(){
+        var calendar = $('#calendar').fullCalendar({
+            header:{
+                left:'prev,next today',
+                center:'title',
+                right:'month,agendaWeek,agendaDay'
+            },
+            events:'/reservations/calendrier-salle/{{id_salle}}/', // Remplacez '1' par l'ID de la salle souhaitée
+        });
+
+        $('#ajouterReservation').click(function(){
+            $('#modalAjoutReservation').show();
+        });
+
+        $('#formAjoutReservation').submit(function(event){
+            event.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "{% url 'ajouter_date' id_reservation id_salle %}",
+                data: {
+                    dateReservation: $('#dateReservation').val(),
+                    heureDebutReservation: $('#heureDebutReservation').val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success: function(data){
+                    // Mettre à jour le calendrier ou afficher un message de succès
+                    window.location.href="{% url 'reservation-confirmation' id_reservation %}";
+                },
+                error: function(error){
+                    // Afficher un message d'erreur en cas d'échec
+                    console.log(error);
+                }
+            });
+            $('#modalAjoutReservation').hide();
+        });
+    })
+    
+</script>
+
+{% endblock %}

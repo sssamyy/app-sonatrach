@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+{% block contenu %}
+<div class="salle-form">
+    <h2>Ajouter une salle</h2>
+    <form method="post">
+      {% csrf_token %}
+      <div class="row g-4">
+        <div class="form-group col-md-3">
+          <label for="{{ form.étage.id_for_label }}">{{ form.étage.label }}</label>
+          {{ form.étage }}
+          {% if form.étage.errors %}
+          <div class="alert alert-danger">{{ form.étage.errors.0 }}</div>
+          {% endif %}
+        </div>
+        <div class="form-group col-md-3">
+          <label for="{{ form.zone.id_for_label }}">{{ form.zone.label }}</label>
+          {{ form.zone }}
+          {% if form.zone.errors %}
+          <div class="alert alert-danger">{{ form.zone.errors.0 }}</div>
+          {% endif %}
+        </div>
+        <div class="form-group col-md-4 mx-5">
+          <label for="{{ form.numero_de_salle.id_for_label }}">{{ form.numero_de_salle.label }}</label>
+          {{ form.numero_de_salle }}
+          {% if form.numero_de_salle.errors %}
+          <div class="alert alert-danger">{{ form.numero_de_salle.errors.0 }}</div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="{{ form.nom_salle.id_for_label }}">{{ form.nom_salle.label }}</label>
+          {{ form.nom_salle }}
+          {% if form.typeSalle.errors %}
+          <div class="alert alert-danger">{{ form.nom_salle.errors.0 }}</div>
+          {% endif %}
+      </div>
+      
+      <div class="row g-4">
+        <div class="form-group col-md-4">
+          <label for="{{ form.typeSalle.id_for_label }}">{{ form.typeSalle.label }}</label>
+            {{ form.typeSalle }}
+            {% if form.typeSalle.errors %}
+            <div class="alert alert-danger">{{ form.typeSalle.errors.0 }}</div>
+            {% endif %}
+        </div>
+        <div class="form-group col-md-4 mx-5">
+          <label for="{{ form.capacite.id_for_label }}">{{ form.capacite.label }}</label>
+          {{ form.capacite }}
+          {% if form.capacite.errors %}
+          <div class="alert alert-danger">{{ form.capacite.errors.0 }}</div>
+          {% endif %}
+        </div>
+        
+      </div>
+      <div class="row g-4">
+        <div class="form-group col-md-4" style="width: 22rem;">
+          <label for="{{ form.etat.id_for_label }}">{{ form.etat.label }}</label>
+          {{ form.etat }}
+          {% if form.etat.errors %}
+          <div class="alert alert-danger">{{ form.etat.errors.0 }}</div>
+          {% endif %}
+        </div>
+        <div class="form-group col-md-4 mx-5">
+          <label for="{{ form.securise.id_for_label }}">{{ form.securise.label }}</label>
+          {{ form.securise }}
+          {% if form.securise.errors %}
+          <div class="alert alert-danger">{{ form.securise.errors.0 }}</div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="row g-4">
+        <div class="form-group col-md-4 mx-5">
+          <label for="{{ form.equipements.id_for_label }}">{{ form.equipements.label }}</label>
+          {{ form.equipements }}
+        </div>
+        <div id="label"><a href="" class="btn btn-success"><i class="fa-solid fa-plus"></i> Ajouter equipement</a></div>
+      </div>
+      <button type="submit" class="btn btn-primary">Enregistrer</button>
+    </div>
+    </form>
+  </div>
+  <style>
+    /* Styles pour la page d'ajout de salle */
+    /* body {
+    font-family: Arial, sans-serif;
+}
+
+.salle-form {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.salle-form h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+.form-group .alert {
+    margin-top: 5px;
+    padding: 10px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+    border-radius: 3px;
+}
+
+.row.g-4 {
+    margin-right: -10px;
+    margin-left: -10px;
+}
+
+.row.g-4 > .form-group {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+*/
+button[type="submit"] {
+    
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+    color: white;
+    padding: 10px 40px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+ body {
+    font-family: Arial, sans-serif;
+}
+
+form {
+    max-width:30cm;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+h3 {
+    margin-top: 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"],
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-inline .form-control {
+  display: inline-block;
+  width: auto;
+  vertical-align: middle;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -5px;
+  margin-left: -5px;
+}
+
+.form-row > .col {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+label {
+  margin-bottom: 0.5rem;
+}
+
+#gg{
+  padding: 6px;
+}
+.salle-form {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.salle-form h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#label a{
+  margin-left: 40px;
+  margin-bottom: 7px;
+  padding: 4px;
+  border-radius: 10%;
+}
+  </style>
+{% endblock %}
